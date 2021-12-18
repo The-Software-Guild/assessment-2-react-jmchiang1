@@ -82,7 +82,7 @@ Step 4: Frontend using Axios - Build a client-side React interface to function w
 [] Update (PUT) an object(s) in the dataset.
 [] Delete (DELETE) an object(s) from the dataset.
 [] GET ONE
-[] Querying endpoint (i.e. a search bar that lets you filter through the list of ****\_****)
+[] Querying endpoint (i.e. a search bar that lets you filter through the list of ********)
 [] Step 5: The frontend React app must be fully styled and responsive.
 
 Outcome:

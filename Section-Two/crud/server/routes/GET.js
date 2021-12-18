@@ -7,7 +7,7 @@ router.get("/", function (req, res, next) {
   res.status(200).send(todos);
 });
 
-//get single todo - WORKING
+//get single todo - WORKING WITH HARD CODED NUMBER ID 
 router.get("/:id", (req, res, next) => {
   let { id } = req.params;
   const findTodo = todos.find((task) => task.id === parseInt(id));
