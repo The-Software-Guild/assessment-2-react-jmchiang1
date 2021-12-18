@@ -51,15 +51,21 @@ router.patch("/:id", (req, res, next) => {
     // .redirect("/");
 });
 
-//create new item - WORKING
+//create new item - WORKS
 router.post("/", (req, res, next) => {
   var newItem = req.body;
   console.log("REQ.BODY", newItem);
-  todos.push({ ...newItem, id: uuidv4() });
-  res.status(200).redirect("/");
+  try {
+      todos.push({ ...newItem, id: uuidv4() });
+      res.status(200)
+      .send(newItem)
+    //   .redirect("/")
+  } catch (err) {
+      res.status(404).send("Invalid creation")
+  }
 });
 
-//delete single item
+//delete single item - 
 router.delete("/:id", (req, res, next) => {
   let { id } = req.params;
   todos = todos.filter((item) => item.id !== id);
