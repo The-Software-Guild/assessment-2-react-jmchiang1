@@ -64,16 +64,17 @@ Step 2: Endpoints - Backend using Express - Create a server with the following f
 [X] Create a POST endpoint that adds a new object to the array.
 [X] Create a PUT endpoint that can update an object in the array.
 [X] Create a DELETE endpoint that can delete an object in the array.
-[] Create an endpoint that will query the dataset and return object(s) from it the based on certain criteria.
+
+[?] Create an endpoint that will query the dataset and return object(s) from it the based on certain criteria.
 Example. Your dataset includes football players and the team they play for. Create a route that will return all players that play for a specific team.
 
 Step 3: Status codes & Error Handling - Backend
 
 Create a global error handler in server.js file.
 Include at least one of each of the following status codes in all of your routes:
-[] 200
+[X] 200
 [] 201
-[] 500
+[X] 500
 
 Step 4: Frontend using Axios - Build a client-side React interface to function with your backend server, including the following CRUD operations:
 
