@@ -92,19 +92,19 @@ Your final web application should have the following:
 Web application (interact in browser)
 The web app should list the items in the dataset (the initial ones created in Step 1), then update,
 in real time (does not require refreshing the browser), to list any modifications made, such as Add, Delete, Edit items.
-[] A form to Add items
-[] An option (ex. button) to Delete items
+[X] A form to Add items
+[X] An option (ex. button) to Delete items
 [] An option (ex. button) to Edit items
 [] When a User presses the Edit button, additional options to Submit the Edit and/or Cancel the Edit should be available to the User
 Postman interaction
 [] All backend endpoints created are functional:
-[] GET
-[] GET One
+[X] GET
+[X] GET One
 [] GET query selection (Step 2. f. above)
-[] POST
-[] PUT
-[] DELETE
-[] Each of status codes (at least 3) created are functional and display when the endpoint they are associated with is called in Postman.
+[X] POST
+[X] PUT
+[X] DELETE
+[X] Each of status codes (at least 3) created are functional and display when the endpoint they are associated with is called in Postman.
 
 reminders:
 We should be following TDD and all code written here on out should be fully tested up to unit tests depth

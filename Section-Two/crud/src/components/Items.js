@@ -8,12 +8,14 @@ function Items() {
     {
       Name: "",
       Task: "",
-      Easy: "",
+      Easy: true,
       Count: "",
       Day: [],
     },
   ]);
+  const [isEditing, setIsEditing] = useState(false);
 
+  //get
   useEffect(() => {
     const fetchTodoAndSetTodos = async () => {
       const todos = await APIHelper.getAllTodos();
@@ -23,6 +25,7 @@ function Items() {
     fetchTodoAndSetTodos();
   }, []);
 
+  //create
   const handleChange = (event) => {
     setItemLists({ ...itemLists, [event.target.name]: event.target.value });
   };
@@ -39,6 +42,7 @@ function Items() {
     //   setItemLists(itemLists);
   };
 
+  //delete
   const deleteTodo = async (id) => {
     try {
       await APIHelper.deleteTodo(id);
@@ -46,6 +50,54 @@ function Items() {
       setTodos(todos.filter((item) => item.id !== id));
     } catch (err) {}
   };
+
+  //update
+//   const updateTodo = (id) => {
+//     axios.patch(`http://localhost:3001/todos/${id}`, 
+//     {
+//       Name: todos.Name,
+//       Task: todos.Task,
+//       Easy: todos.Easy,
+//       Count: todos.Count,
+//       Day: todos.Day,
+//     })
+//       .then(response => {
+//         setTodos(todos);
+//       })
+//       .catch(error => {
+//         console.log(error);
+//       });
+//   }
+
+  const updateTodo = ({onChange}) => {
+    let todoContent;
+    if (isEditing) {
+      todoContent = (
+        <>
+          <input
+            value={todos.Name}
+            onChange={e => {
+              onChange({
+                ...todos,
+                title: e.target.value
+              });
+            }} />
+          <button onClick={() => setIsEditing(false)}>
+            Save
+          </button>
+        </>
+      );
+    } else {
+      todoContent = (
+        <>
+          {todos.Name}
+          <button onClick={() => setIsEditing(true)}>
+            Edit
+          </button>
+        </>
+      );
+    }
+  }
 
   return (
     <div className="App">
@@ -111,10 +163,10 @@ function Items() {
               <h2> Task: {item.Task} </h2>
               <h2> Easy?: {String(item.Easy).toUpperCase()} </h2>
               <h2> Count: {item.Count} </h2>
-              {/* <h2> Day: {item.Day.map((x) => x + ' | ')} </h2> */}
-              <h2> Day: {item.Day} </h2>
+              <h2> Day: {item.Day.map((x) => x + ' | ')} </h2>
+              {/* <h2> Day: {item.Day} </h2> */}
               <button onClick={() => deleteTodo(item.id)}>Delete</button>
-              <button>Edit</button>
+              <button onClick={() => setIsEditing(true)}>Edit </button>
             </div>
           );
         })}
@@ -122,5 +174,6 @@ function Items() {
     </div>
   );
 }
+
 
 export default Items;
