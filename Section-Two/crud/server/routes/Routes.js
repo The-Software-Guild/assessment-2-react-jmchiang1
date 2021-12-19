@@ -6,39 +6,38 @@ const res = require("express/lib/response");
 
 //get all todos - WORKING
 router.get("/", (req, res, next) => {
-    try {
-        res.status(200).send(todos);
-    } catch (err){
-        res.status(400).send("Invalid GET all request");
-        next(err);
-    }
+  try {
+    res.status(200).send(todos);
+  } catch (err) {
+    res.status(400).send("Invalid GET all request");
+    next(err);
+  }
 });
 
 //get single todo - WORKING WITH HARD CODED NUMBER ID
 router.get("/:id", (req, res, next) => {
   let id = req.params.id;
-      const findTodo = todos.find((task) => task.id === parseInt(id));
-      if (!findTodo){
-          return res.status(404).send("Invalid GET by ID request");
-      } else {
-          res.status(200).send(findTodo);
-      }
+  const findTodo = todos.find((task) => task.id === parseInt(id));
+  if (!findTodo) {
+    return res.status(404).send("Invalid GET by ID request");
+  } else {
+    res.status(200).send(findTodo);
+  }
 });
 
 //update existing item by id - WORKS
 router.patch("/:id", (req, res, next) => {
-  let id  = req.params.id;
+  let id = req.params.id;
   try {
-      const item = todos.find((item) => item.id === parseInt(id));
-      item.Name = req.body.Name;
-      item.Task = req.body.Task;
-      item.Easy = req.body.Easy;
-      item.Count = req.body.Count;
-      item.Day = req.body.Day;
-      res
-        .status(200).send(item);
-  } catch (err){
-      res.status(404).send('Invalid Item update');
+    const item = todos.find((item) => item.id === parseInt(id));
+    item.Name = req.body.Name;
+    item.Task = req.body.Task;
+    item.Easy = req.body.Easy;
+    item.Count = req.body.Count;
+    item.Day = req.body.Day;
+    res.status(200).send(item);
+  } catch (err) {
+    res.status(404).send("Invalid Item update");
     //   next(err);
   }
 });
@@ -56,23 +55,24 @@ router.patch("/:id", (req, res, next) => {
 //   }
 // });
 
+//create single item - WORKS
 router.post("/", (request, response) => {
-    const todo = {
-      id: uuidv4(),
-      Name: request.body.Name,
-      Task: request.body.Task,
-      Easy: request.body.Easy,
-      Count: request.body.Count,
-    };
-    try {
-        todos.push(todo);
-        response.status(200).send(todo);
-    } catch (err) {
-        res.status(404).send('Invalid creation')
-    }
-  });
+  const todo = {
+    Name: request.body.Name,
+    Task: request.body.Task,
+    Easy: request.body.Easy,
+    Count: request.body.Count,
+    id: uuidv4(),
+  };
+  try {
+    todos.push(todo);
+    response.status(200).send(todo);
+  } catch (err) {
+    res.status(404).send("Invalid creation");
+  }
+});
 
-//delete single item - 
+//delete single item -
 // router.delete("/:id", (req, res, next) => {
 //   let id = req.params.id;
 //   try {
@@ -86,46 +86,44 @@ router.post("/", (request, response) => {
 //   }
 // })
 
+//delete single item - WORKS
 router.delete("/:id", (request, response) => {
-    const id = request.params.id;
-    const findItem = todos.find((item) => item.id === parseInt(id));
-    if (!findItem)
-      return response
-        .status(404)
-        .send("Invalid Deletion");
-  
-    const index = todos.indexOf(findItem);
-    todos.splice(index, 1);
-    response.send(findItem);
-  });
+  const id = request.params.id;
+  const findItem = todos.find((item) => item.id === id);
+  if (!findItem) return response.status(404).send("Invalid Deletion");
+
+  const index = todos.indexOf(findItem);
+  todos.splice(index, 1);
+  response.send(findItem);
+});
 
 //search query string - NOT WORKING
 router.get("/search", (req, res, next) => {
-    try {
-        res.status(200).send(req.query);
-        // console.log(req.query);
-    } catch (err){
-        res.status(400).send("Invalid search request");
-        next(err);
-    }
+  try {
+    res.status(200).send(req.query);
+    // console.log(req.query);
+  } catch (err) {
+    res.status(400).send("Invalid search request");
+    next(err);
+  }
 });
 
 //error handler
 router.use((req, res, next) => {
-    const err = new Error("Task not found");
-    err.status = 404;
-    next(err);
-})
+  const err = new Error("Task not found");
+  err.status = 404;
+  next(err);
+});
 
 //global error handler
 router.use((err, req, res, next) => {
-    res.status(err.status || 500)
-    res.send({
-        error: {
-            status: err.status || 500,
-            message: err.message,
-        }
-    })
-})
+  res.status(err.status || 500);
+  res.send({
+    error: {
+      status: err.status || 500,
+      message: err.message,
+    },
+  });
+});
 
 module.exports = router;

@@ -45,7 +45,7 @@ processData(input);
 [] Part A: everythings-a-to-do-list
 [] Purpose: Create a server using Express in Node, that serves up any data of your choice, and create a frontend application in React to interact with the server.
 
-[] Follow TDD and test all routes using mocha/chai (BONUS: Use Jest & Enzyme to test some React components)
+[X] Follow TDD and test all routes using mocha/chai (BONUS: Use Jest & Enzyme to test some React components)
 
 Getting Started
 
@@ -78,10 +78,10 @@ Include at least one of each of the following status codes in all of your routes
 
 Step 4: Frontend using Axios - Build a client-side React interface to function with your backend server, including the following CRUD operations:
 
-[] Create (POST) a new object(s) to the dataset you created in Step 1.
-[] Read (GET) a list of all the objects in the dataset.
+[X] Create (POST) a new object(s) to the dataset you created in Step 1.
+[X] Read (GET) a list of all the objects in the dataset.
 [] Update (PUT) an object(s) in the dataset.
-[] Delete (DELETE) an object(s) from the dataset.
+[X] Delete (DELETE) an object(s) from the dataset.
 [] GET ONE
 [] Querying endpoint (i.e. a search bar that lets you filter through the list of ********)
 [] Step 5: The frontend React app must be fully styled and responsive.

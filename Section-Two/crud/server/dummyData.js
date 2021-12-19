@@ -7,7 +7,7 @@ let todos = [
     Easy: true,
     Count: 1,
     Day: ["Monday", "Tuesday"],
-    id: 1
+    id: uuidv4()
   },
   {
     Name: "Michael Leung",
@@ -30,7 +30,7 @@ let todos = [
     Task: "Graduate from bootcamp",
     Easy: false,
     Count: 1,
-    Day: ["Monday"],
+    Day: ["Thursday", "Monday"],
     id: uuidv4()
   },
   {
@@ -38,7 +38,7 @@ let todos = [
     Task: "Get a new job",
     Easy: false,
     Count: 10,
-    day: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    Day: ["Wednesday", "Thursday", "Friday"],
     id: uuidv4()
   },
 ];
