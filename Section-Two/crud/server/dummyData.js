@@ -2,7 +2,7 @@ const { v4: uuidv4 } = require("uuid");
 
 let todos = [
   {
-    Name: "Jonathan",
+    Name: "Jonathan Chiang",
     Task: "Buy the milk",
     Easy: true,
     Count: 1,
