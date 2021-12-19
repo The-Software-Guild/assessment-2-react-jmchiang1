@@ -40,6 +40,7 @@
 .container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .item-div {
@@ -51,5 +52,9 @@
 }
 
 .item-div:hover {
-  opacity: .50;
+  opacity: .75;
+}
+
+.item-div, h2{
+  background-color: white;
 }

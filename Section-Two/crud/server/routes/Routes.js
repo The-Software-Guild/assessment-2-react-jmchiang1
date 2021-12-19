@@ -17,7 +17,7 @@ router.get("/", (req, res, next) => {
 //get single todo - WORKING WITH HARD CODED NUMBER ID
 router.get("/:id", (req, res, next) => {
   let id = req.params.id;
-  const findTodo = todos.find((task) => task.id === parseInt(id));
+  const findTodo = todos.find((task) => task.id === id);
   if (!findTodo) {
     return res.status(404).send("Invalid GET by ID request");
   } else {
@@ -27,9 +27,10 @@ router.get("/:id", (req, res, next) => {
 
 //update existing item by id - WORKS
 router.patch("/:id", (req, res, next) => {
-  let id = req.params.id;
+  let id  = req.params.id;
   try {
-    const item = todos.find((item) => item.id === parseInt(id));
+    const item = todos.find((item) => item.id === id);
+    // const item = todos.find((item) => item.id === id);
     item.Name = req.body.Name;
     item.Task = req.body.Task;
     item.Easy = req.body.Easy;
@@ -38,22 +39,9 @@ router.patch("/:id", (req, res, next) => {
     res.status(200).send(item);
   } catch (err) {
     res.status(404).send("Invalid Item update");
-    //   next(err);
+    console.log(err);
   }
 });
-
-//create new item - WORKS
-// router.post("/", (req, res, next) => {
-//   var newItem = req.body;
-//   try {
-//       todos.push({ ...newItem, id: uuidv4() });
-//       res.status(200)
-//       .send(newItem)
-//   } catch (err) {
-//       res.status(404).send("Invalid creation");
-//       next(err);
-//   }
-// });
 
 //create single item - WORKS
 router.post("/", (request, response) => {

@@ -7,3 +7,22 @@
     color: white;
     cursor: pointer;
   }
+
+  button {
+    width: 6rem;
+    height: 2rem;
+    border: 1px solid white;
+    border-radius: 10px;
+  }
+
+  button:hover {
+    cursor: pointer;
+    background-color: cornflowerblue;
+  }
+
+  input {
+    width: 10rem;
+    height: 2rem;
+    border: 1px solid white;
+    border-radius: 10px;
+  }

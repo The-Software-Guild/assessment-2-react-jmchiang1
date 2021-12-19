@@ -5,20 +5,13 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 
 const PORT = process.env.PORT || 3001;
-// const GET = require('./routes/GET')
-// const POST = require('./routes/POST')
-// const PATCH = require('./routes/PATCH')
-// const DELETE = require('./routes/DELETE')
 const Routes = require('./routes/Routes')
 
 app.use(logger("dev"));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// app.use("/", GET);
-// app.use("/", POST);
-// app.use("/:id", PATCH); //gotta fix something here
-// app.use("/:id", DELETE); //gotta fix something here
+
 app.use("/todos", Routes);
 
 app.listen(PORT, function() {

@@ -7,7 +7,7 @@ let todos = [
     Easy: true,
     Count: 1,
     Day: ["Monday", "Tuesday"],
-    id: uuidv4()
+    id: '406c4561-fbae-4747-90dc-328e4b79811c'
   },
   {
     Name: "Michael Leung",
@@ -15,7 +15,7 @@ let todos = [
     Easy: true,
     Count: 2,
     Day: ["Monday", "Saturday"],
-    id: uuidv4()
+    id: 'd6eae58e-a1e7-43b9-b6b5-68d00946e2bd'
   },
   {
     Name: "Eric Liang",
@@ -23,7 +23,7 @@ let todos = [
     Easy: false,
     Count: 4,
     Day: ["Monday", "Tuesday", "Saturday", "Sunday"],
-    id: uuidv4()
+    id: '2167d807-c2fc-4a9e-af5e-8047ede65aad'
   },
   {
     Name: "May Wu",
@@ -31,7 +31,7 @@ let todos = [
     Easy: false,
     Count: 1,
     Day: ["Thursday", "Monday"],
-    id: uuidv4()
+    id: 'ea9fa306-13fb-48ad-8618-a3158c68c363'
   },
   {
     Name: "Ken Chu",
@@ -39,7 +39,7 @@ let todos = [
     Easy: false,
     Count: 10,
     Day: ["Wednesday", "Thursday", "Friday"],
-    id: uuidv4()
+    id: 'c4c8c1d8-dce5-4205-9ef7-8abe4a32f898'
   },
 ];
 

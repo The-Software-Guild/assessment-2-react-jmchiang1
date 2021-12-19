@@ -1,7 +1,10 @@
+import axios from "axios";
 import React, {useState} from "react";
 import "./Modal.css";
 
 function Modal({ setOpenModal, todos }) {
+
+    // console.log("todos",todos)
 
     const [input, setInput] = useState({
         Name: '',
@@ -10,9 +13,22 @@ function Modal({ setOpenModal, todos }) {
         Count: '',
         Day: [],
     })
+    //submit function should update data in server as well as close modal and re-render data
+    const submit = async (e, id) => { 
+        id = todos.id
+        console.log("todos id", todos.id)   //returns: c4c8c1d8-dce5-4205-9ef7-8abe4a32f898
+        await axios.patch(`http://localhost:3001/todos/${id}`, input)
+    }
+    
+    const handleChange = (e) => {
+        setInput({
+            ...input, Name: e.target.value
+    })
+    // console.log(input)
+    }
 
   return (
-    <div className="container">
+    <div className="container" id={todos.id} >
       <div className="modalBackground">
         <div className="modalContainer">
           <div className="body">
@@ -20,7 +36,7 @@ function Modal({ setOpenModal, todos }) {
             type="text"
             name="Name"
             value={input.Name}
-            onChange={(e) => console.log(setInput({...input, Name: e.target.value})) }
+            onChange={handleChange}
             placeholder="Name"
             required
           />
@@ -28,7 +44,7 @@ function Modal({ setOpenModal, todos }) {
             type="text"
             name="Task"
             value={input.Task}
-            onChange={(e) => console.log(setInput({...input, Task: e.target.value})) }
+            onChange={(e) => setInput({...input, Task: e.target.value}) }
             placeholder="Task"
             required
           />
@@ -36,7 +52,7 @@ function Modal({ setOpenModal, todos }) {
             type="text"
             name="Easy"
             value={input.Easy}
-            onChange={(e) => console.log(setInput({...input, Easy: e.target.value})) }
+            onChange={(e) => setInput({...input, Easy: e.target.value}) }
             placeholder="Easy"
             required
           />
@@ -44,7 +60,7 @@ function Modal({ setOpenModal, todos }) {
             type="text"
             name="Name"
             value={input.Count}
-            onChange={(e) => console.log(setInput({...input, Count: e.target.value})) }
+            onChange={(e) => setInput({...input, Count: e.target.value}) }
             placeholder="Count"
             required
           />
@@ -52,7 +68,7 @@ function Modal({ setOpenModal, todos }) {
             type="text"
             name="Day"
             value={input.Day}
-            onChange={(e) => console.log(setInput({...input, Day: e.target.value})) }
+            onChange={(e) => setInput({...input, Day: e.target.value}) }
             placeholder="Day"
             required
           />
@@ -66,7 +82,7 @@ function Modal({ setOpenModal, todos }) {
             >
               Cancel
             </button>
-            <button>Submit</button>
+            <button onClick={submit} >Submit</button>
           </div>
         </div>
       </div>

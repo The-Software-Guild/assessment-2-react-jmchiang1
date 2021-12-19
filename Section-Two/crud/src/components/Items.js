@@ -6,7 +6,7 @@ import Modal from "./Modal";
 
 function Items() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState([]);   //data from the server
   const [itemLists, setItemLists] = useState([
     {
       Name: "",
@@ -101,9 +101,10 @@ function Items() {
         placeholder="Search..."
         onChange={(e) => searchItems(e.target.value)}
       />
+
       <form onSubmit={handleSubmit}>
         <h5>Create Item Here</h5>
-        <div style={{ display: "inline-grid" }}>
+        <div style={{ display: "flex", justifyContent:'center' }}>
           <input
             type="text"
             name="Name"
@@ -136,6 +137,7 @@ function Items() {
             placeholder="Day"
             required
           />
+        <label htmlFor="easy">Easy?</label>
           <div>
             <input
               type="checkbox"
@@ -185,13 +187,11 @@ function Items() {
                   <h2> Day: {item.Day} </h2>
                   <button onClick={() => deleteTodo(item.id)}>Delete</button>
                   {/* <button onClick={() => setEdit(true)}>Edit</button> */}
-                  <button onClick={() => {
-                      setModalOpen(true);
-                    }}>Edit </button>
+                  <button onClick={() => {setModalOpen(true)}}>Edit </button>
+                  {modalOpen && <Modal todos={item} setOpenModal={setModalOpen} />}
                 </div>
               );
             })}
-            {modalOpen && <Modal setOpenModal={setModalOpen} />}
       </div>
     </div>
   );

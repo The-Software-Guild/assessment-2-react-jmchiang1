@@ -74,10 +74,6 @@
     background-color: crimson;
   }
 
-  p, h1 {
-    background-color: white;
-  }
-
   .body {
       display: flex;
       flex-direction: column;
