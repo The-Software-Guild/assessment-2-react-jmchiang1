@@ -1,0 +1,12 @@
+{
+  "name": "section-one",
+  "version": "1.0.0",
+  "description": "",
+  "main": "PartB.test.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
