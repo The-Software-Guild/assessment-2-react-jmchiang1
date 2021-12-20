@@ -6,7 +6,7 @@ let todos = [
     Task: "Buy the milk",
     Easy: true,
     Count: 1,
-    Day: ["Monday", "Tuesday"],
+    Day: ["Monday"],
     id: '406c4561-fbae-4747-90dc-328e4b79811c'
   },
   {
@@ -14,7 +14,7 @@ let todos = [
     Task: "Walk the dog",
     Easy: true,
     Count: 2,
-    Day: ["Monday", "Saturday"],
+    Day: ["Saturday"],
     id: 'd6eae58e-a1e7-43b9-b6b5-68d00946e2bd'
   },
   {
@@ -22,7 +22,7 @@ let todos = [
     Task: "Deliver the package",
     Easy: false,
     Count: 4,
-    Day: ["Monday", "Tuesday", "Saturday", "Sunday"],
+    Day: ["Sunday"],
     id: '2167d807-c2fc-4a9e-af5e-8047ede65aad'
   },
   {
@@ -30,16 +30,24 @@ let todos = [
     Task: "Graduate from bootcamp",
     Easy: false,
     Count: 1,
-    Day: ["Thursday", "Monday"],
+    Day: ["Thursday"],
     id: 'ea9fa306-13fb-48ad-8618-a3158c68c363'
+  },
+  {
+    Name: "Kaylin Chen",
+    Task: "Get promoted to manager",
+    Easy: false,
+    Count: 2,
+    Day: ["Wednesday"],
+    id: 'c4c8c1d8-dce5-4205-9df7-8abe4a32f898'
   },
   {
     Name: "Ken Chu",
     Task: "Get a new job",
     Easy: false,
     Count: 10,
-    Day: ["Wednesday", "Thursday", "Friday"],
-    id: 'c4c8c1d8-dce5-4205-9ef7-8abe4a32f898'
+    Day: ["Friday"],
+    id: '8c59a335-dd25-4d3f-9a72-618b1f2e2ac3'
   },
 ];
 

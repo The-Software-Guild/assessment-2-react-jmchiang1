@@ -56,7 +56,9 @@ router.post("/", (request, response) => {
     todos.push(todo);
     response.status(200).send(todo);
   } catch (err) {
-    res.status(404).send("Invalid creation");
+      if (!todo){
+          res.status(404).send("Invalid creation");
+      }
   }
 });
 
