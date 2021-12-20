@@ -87,11 +87,11 @@ function Items() {
       <div className="float-container">
         <div
           className="float-right"
-          style={{
-            backgroundColor: "white",
-            borderRadius: "10px",
-            margin: "1rem",
-          }}
+        //   style={{
+        //     // backgroundColor: "none",
+        //     // borderRadius: "10px",
+        //     // margin: "1rem",
+        //   }}
         >
           <form onSubmit={handleSubmit} style={{ backgroundColor: "white" }}>
             <h2 style={{ backgroundColor: "white" }}>Create Item Here</h2>

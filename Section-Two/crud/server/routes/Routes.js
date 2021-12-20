@@ -30,7 +30,6 @@ router.patch("/:id", (req, res, next) => {
   let id  = req.params.id;
   try {
     const item = todos.find((item) => item.id === id);
-    // const item = todos.find((item) => item.id === id);
     item.Name = req.body.Name;
     item.Task = req.body.Task;
     item.Easy = req.body.Easy;

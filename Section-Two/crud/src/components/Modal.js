@@ -1,9 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Modal.css";
 
 function Modal({ setOpenModal, todos }) {
-  // console.log("todos",todos)
 
   const [input, setInput] = useState({
     Name: "",
@@ -13,11 +12,22 @@ function Modal({ setOpenModal, todos }) {
     Day: [],
   });
 
-  const submit = async (e, id) => {
+//   const submitFunc = useEffect((id) => {
+//     id = todos.id
+//     const submit = async () => {
+//       const todos = axios.patch(`http://localhost:3001/todos/${id}`, input);
+//       console.log(todos);
+//       setInput(input);
+//     };
+//     submit();
+//   }, [input, todos.id]);
+
+  const submitFunc = async (e, id) => {
     id = todos.id;
     console.log("todos id", todos.id);
     await axios.patch(`http://localhost:3001/todos/${id}`, input);
     e.preventDefault();
+    // setInput(input);
   };
 
   const handleChange = (e) => {
@@ -95,7 +105,7 @@ function Modal({ setOpenModal, todos }) {
             >
               Cancel
             </button>
-            <button onClick={submit}>Submit</button>
+            <button onClick={submitFunc}>Submit</button>
           </div>
         </div>
       </div>
