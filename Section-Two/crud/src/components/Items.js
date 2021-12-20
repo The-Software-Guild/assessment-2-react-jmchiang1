@@ -6,12 +6,12 @@ import Modal from "./Modal";
 
 function Items() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [todos, setTodos] = useState([]);   //data from the server
+  const [todos, setTodos] = useState([]); //data from the server
   const [itemLists, setItemLists] = useState([
     {
       Name: "",
       Task: "",
-      Easy: "",
+      Easy: "true",
       Count: "",
       Day: [],
     },
@@ -53,6 +53,8 @@ function Items() {
 
   //submit itemLists data to axios.post request
   const handleSubmit = () => {
+    console.log("day", itemLists.Day);
+
     axios
       .post("http://localhost:3001/todos/", itemLists)
       .then(function (response) {
@@ -67,131 +69,165 @@ function Items() {
   const deleteTodo = async (id) => {
     try {
       await APIHelper.deleteTodo(id);
-      //   setTodos(todos.filter(({ id: i }) => id !== i));
       setTodos(todos.filter((item) => item.id !== id));
     } catch (err) {
       console.log(err);
     }
   };
 
-  //updating content
-  //function grabbed from stackoverflow
-  //   const updateTodo = (e, id) => {
-  //     e.preventDefault();
-  //     const data = {
-  //       Name: todos.Name,
-  //       Task: todos.Task,
-  //       Easy: todos.Easy,
-  //       Count: todos.Count,
-  //       Day: todos.Day,
-  //     };
-  //     axios
-  //       .put(`http://localhost:3001/todos/${id}`, data)
-  //       .then((result) => {})
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   };
-
   return (
     <div className="App">
       <h1 style={{ color: "black" }}>ToDo List!</h1>
+
       <input
         type="text"
         placeholder="Search..."
         onChange={(e) => searchItems(e.target.value)}
       />
+      <div className="float-container">
+        <div
+          className="float-right"
+          style={{
+            backgroundColor: "white",
+            borderRadius: "10px",
+            margin: "1rem",
+          }}
+        >
+          <form onSubmit={handleSubmit} style={{ backgroundColor: "white" }}>
+            <h2 style={{ backgroundColor: "white" }}>Create Item Here</h2>
+            <div
+              style={{
+                display: "block",
+                justifyContent: "center",
+                backgroundColor: "white",
+              }}
+            >
+              <input
+                type="text"
+                name="Name"
+                value={itemLists.Name}
+                onChange={handleChange}
+                placeholder="Name"
+                required
+              />
+              <input
+                type="text"
+                name="Task"
+                value={itemLists.Task}
+                onChange={handleChange}
+                placeholder="Task"
+                required
+              />
+              <input
+                type="number"
+                name="Count"
+                value={itemLists.Count}
+                onChange={handleChange}
+                placeholder="Count"
+                required
+              />
+              <div style={{ backgroundColor: "white", margin: "1rem" }}>
+                <label
+                  style={{
+                    backgroundColor: "white",
+                    fontWeight: "bold",
+                    marginRight: "1rem",
+                  }}
+                  htmlFor="easy"
+                >
+                  Day of the week
+                </label>
+                <select style={{ borderRadius: "10px", backgroundColor: 'white' }} name="Todays_Day">
+                  <option value={itemLists.Day} selected></option>
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                  <option value="Sunday">Sunday</option>
+                </select>
+              </div>
 
-      <form onSubmit={handleSubmit}>
-        <h5>Create Item Here</h5>
-        <div style={{ display: "flex", justifyContent:'center' }}>
-          <input
-            type="text"
-            name="Name"
-            value={itemLists.Name}
-            onChange={handleChange}
-            placeholder="Name"
-            required
-          />
-          <input
-            type="text"
-            name="Task"
-            value={itemLists.Task}
-            onChange={handleChange}
-            placeholder="Task"
-            required
-          />
-          <input
-            type="number"
-            name="Count"
-            value={itemLists.Count}
-            onChange={handleChange}
-            placeholder="Count"
-            required
-          />
-          <input
-            type="text"
-            name="Day"
-            value={itemLists.Day}
-            onChange={handleChange}
-            placeholder="Day"
-            required
-          />
-        <label htmlFor="easy">Easy?</label>
-          <div>
-            <input
-              type="checkbox"
-              name="scales"
-              value={itemLists.Easy}
-              defaultChecked
-            />
-            <label htmlFor="True">True</label>
-          </div>
-
-          <div>
-            <input type="checkbox" value={itemLists.Easy} />
-            <label htmlFor="False">False</label>
-          </div>
-        </div>
-        <div>
-          <button type="submit">Create</button>
-        </div>
-      </form>
-
-      <div className="container">
-        {/* if edit button is clicked, set state to true and conditionally render input forms, will replace the current h2 tags */}
-        {/* istouched === true ? <input>Name: {item.Name} </input> : <h2>Name: {item.Name}</h2>  */}
-        {/* render "Save button", once pressed, save state of current input and set istouched to false and fire axios.put */}{" "}
-        {searchInput.length > 1
-          ? filteredResults.map((item) => {
-              return (
-                <div key={item.id} className="item-div">
-                  <h2> Name: {item.Name} </h2>
-                  <h2> Task: {item.Task} </h2>
-                  <h2> Easy?: {String(item.Easy).toUpperCase()} </h2>
-                  <h2> Count: {item.Count} </h2>
-                  {/* <h2> Day: {item.Day.map((x) => x + ' | ')} </h2> */}
-                  <h2> Day: {item.Day} </h2>
-                  <button onClick={() => deleteTodo(item.id)}>Delete</button>
-                  {/* <button onChange={() => setEdit(true)} onClick={updateTodo}>Edit </button> */}
+              <div className="easy-div">
+                <label
+                  style={{ backgroundColor: "white", fontWeight: "bold" }}
+                  htmlFor="easy"
+                >
+                  Easy?
+                </label>
+                <div style={{ backgroundColor: "white" }}>
+                  <input
+                    style={{ width: "2rem" }}
+                    type="checkbox"
+                    value={itemLists.Easy}
+                    defaultChecked
+                  />
+                  <label style={{ backgroundColor: "white" }} htmlFor="True">
+                    True
+                  </label>
                 </div>
-              );
-            })
-          : todos.map((item, i) => {
-              return (
-                <div key={i} className="item-div">
-                  <h2> Name: {item.Name} </h2>
-                  <h2> Task: {item.Task} </h2>
-                  <h2> Easy?: {String(item.Easy).toUpperCase()} </h2>
-                  <h2> Count: {item.Count} </h2>
-                  <h2> Day: {item.Day} </h2>
-                  <button onClick={() => deleteTodo(item.id)}>Delete</button>
-                  {/* <button onClick={() => setEdit(true)}>Edit</button> */}
-                  <button onClick={() => {setModalOpen(true)}}>Edit </button>
-                  {modalOpen && <Modal todos={item} setOpenModal={setModalOpen} />}
+                <div style={{ backgroundColor: "white" }}>
+                  <input
+                    style={{ width: "2rem" }}
+                    type="checkbox"
+                    value={itemLists.Easy}
+                  />
+                  <label style={{ backgroundColor: "white" }} htmlFor="False">
+                    False
+                  </label>
                 </div>
-              );
-            })}
+              </div>
+            </div>
+            <div style={{ backgroundColor: "white" }}>
+              <button type="submit">Create</button>
+            </div>
+          </form>
+        </div>
+        <div className="container">
+          {" "}
+          {searchInput.length > 1
+            ? filteredResults.map((item) => {
+                return (
+                  <div key={item.id} className="item-div">
+                    <h2> Name: {item.Name} </h2>
+                    <h2> Task: {item.Task} </h2>
+                    <h2> Easy?: {String(item.Easy).toUpperCase()} </h2>
+                    <h2> Count: {item.Count} </h2>
+                    {/* <h2> Day: {item.Day.map((x) => x + ' | ')} </h2> */}
+                    <h2> Day: {item.Day} </h2>
+                    <button onClick={() => deleteTodo(item.id)}>Delete</button>
+                    <button
+                      onClick={() => {
+                        setModalOpen(true);
+                      }}
+                    >
+                      Edit{" "}
+                    </button>
+                    {modalOpen && (
+                      <Modal todos={item} setOpenModal={setModalOpen} />
+                    )}
+                  </div>
+                );
+              })
+            : todos.map((item, i) => {
+                return (
+                  <div key={i} className="item-div">
+                    <h2> Name: {item.Name} </h2>
+                    <h2> Task: {item.Task} </h2>
+                    <h2> Easy?: {String(item.Easy).toUpperCase()} </h2>
+                    <h2> Count: {item.Count} </h2>
+                    <h2> Day: {item.Day} </h2>
+
+                        <button onClick={() => deleteTodo(item.id)}>Delete</button>
+                        <button onClick={() => {setModalOpen(true)}}> Edit{" "}</button>
+                        {modalOpen && ( <Modal todos={item} setOpenModal={setModalOpen} />)}
+                    <div className="button-div">
+                    </div>
+                  </div>
+                );
+              })}
+        </div>
       </div>
     </div>
   );

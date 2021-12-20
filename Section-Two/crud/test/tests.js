@@ -17,7 +17,7 @@ describe('Todo List API', () => {
                 .end((err, response) => {
                     response.should.have.status(200);
                     response.body.should.be.a('array');
-                    response.body.length.should.be.eq(5);
+                    response.body.length.should.be.eq(6);
                 done();
                 });
         });
@@ -39,7 +39,7 @@ describe('Todo List API', () => {
      */
     describe("GET /:id", () => {
         it("It should GET a item by ID", (done) => {
-            const itemId = 1;
+            const itemId = '406c4561-fbae-4747-90dc-328e4b79811c';
             chai.request(server)                
                 .get("/todos/" + itemId)
                 .end((err, response) => {
@@ -51,7 +51,7 @@ describe('Todo List API', () => {
                     response.body.should.have.property('Easy');
                     response.body.should.have.property('Count');
                     response.body.should.have.property('Day');
-                    response.body.should.have.property('id').eq(1);
+                    response.body.should.have.property('id').eq('406c4561-fbae-4747-90dc-328e4b79811c');
                 done();
                 });
         });
@@ -99,7 +99,7 @@ describe('Todo List API', () => {
 
         // it("It should NOT POST a new item with empty string", (done) => {
         //     const item = {
-        //         Names: ''
+        //         name: ''
         //     };
         //     chai.request(server)                
         //         .post("/todos")
@@ -119,7 +119,7 @@ describe('Todo List API', () => {
      */
     describe("PATCH /todos/:id", () => {
         it("It should PATCH an existing item", (done) => {
-            const itemId = 1;
+            const itemId = '406c4561-fbae-4747-90dc-328e4b79811c';
             const item = {
                 Name: "name changed",
                 Task: "task changed"
@@ -130,15 +130,15 @@ describe('Todo List API', () => {
                 .end((err, response) => {
                     response.should.have.status(200);
                     response.body.should.be.a('object');
-                    response.body.should.have.property('id').eq(1);
+                    response.body.should.have.property('id').eq('406c4561-fbae-4747-90dc-328e4b79811c');
                     response.body.should.have.property('Name').eq("name changed");
                     response.body.should.have.property('Task').eq("task changed");
                 done();
                 });
         });
 
-        it("It should NOT PUT an existing task with a name with less than 3 characters", (done) => {
-            const itemId = 1;
+        it("It should NOT PATCH an existing task with a name with less than 3 characters", (done) => {
+            const itemId = '406c4561-fbae-4747-90dc-328e4b79811c';
             const item = {
                 Name: "ts",
                 Task: "change"
@@ -160,7 +160,7 @@ describe('Todo List API', () => {
      */
     describe("DELETE /todos/:id", () => {
         it("It should DELETE an existing task", (done) => {
-            const itemId = 1;
+            const itemId = '406c4561-fbae-4747-90dc-328e4b79811c';
             chai.request(server)                
                 .delete("/todos/" + itemId)
                 .end((err, response) => {
@@ -170,9 +170,9 @@ describe('Todo List API', () => {
         });
 
         it("It should NOT DELETE a task that is not in the database", (done) => {
-            const taskId = 999;
+            const itemId = 999;
             chai.request(server)                
-                .delete("/todos/" + taskId)
+                .delete("/todos/" + itemId)
                 .end((err, response) => {
                     response.should.have.status(404);
                     response.text.should.be.eq("Invalid Deletion");
