@@ -9,7 +9,7 @@ function Modal({ setOpenModal, todos }) {
     Task: "",
     Easy: "",
     Count: "",
-    Day: [],
+    Day: [""],
   });
 
 //   const submitFunc = useEffect((id) => {
@@ -39,6 +39,7 @@ function Modal({ setOpenModal, todos }) {
       <div className="modalBackground">
         <div className="modalContainer">
           <div className="body">
+              <h3 style={{backgroundColor: 'transparent'}} >Update Item Here</h3>
             <input
               type="text"
               name="Name"
@@ -55,30 +56,6 @@ function Modal({ setOpenModal, todos }) {
               placeholder="Task"
               required
             />
-            <div
-              style={{
-                display: "flex",
-                backgroundColor: "white",
-                marginBottom: "1rem",
-              }}
-            >
-              <label for="html" style={{ backgroundColor: "white" }}>
-                Easy?
-              </label>
-              <select
-                style={{
-                  backgroundColor: "white",
-                  border: "1px solid lightGray",
-                  borderRadius: "10px",
-                }}
-                name="Boolean"
-              >
-                <option value={input.Day} selected></option>
-                <option value="True">True</option>
-                <option value="False">False</option>
-              </select>
-            </div>
-
             <input
               type="number"
               name="Count"
@@ -91,8 +68,17 @@ function Modal({ setOpenModal, todos }) {
               type="text"
               name="Day"
               value={input.Day}
+            //   onChange={(e) => console.log(setInput({ ...input, Day: e.target.value }))}
               onChange={(e) => setInput({ ...input, Day: e.target.value })}
               placeholder="Day"
+              required
+            />
+            <input
+              type="text"
+              name="easy"
+              value={input.Easy}
+              onChange={(e) => setInput({ ...input, Easy: e.target.value })}
+              placeholder="True or False"
               required
             />
           </div>

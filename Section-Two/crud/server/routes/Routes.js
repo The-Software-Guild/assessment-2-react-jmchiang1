@@ -32,9 +32,9 @@ router.patch("/:id", (req, res, next) => {
     const item = todos.find((item) => item.id === id);
     item.Name = req.body.Name;
     item.Task = req.body.Task;
-    item.Easy = req.body.Easy;
+    item.Easy = req.body.Easy.toLowerCase() === 'true'; //convert boolean to string?
     item.Count = req.body.Count;
-    item.Day = req.body.Day;
+    item.Day = req.body.Day.toString(); //convert array to string?
     res.status(200).send(item);
   } catch (err) {
     res.status(404).send("Invalid Item update");

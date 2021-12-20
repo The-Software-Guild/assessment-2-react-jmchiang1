@@ -6,7 +6,7 @@ let todos = [
     Task: "Buy the milk",
     Easy: true,
     Count: 1,
-    Day: ["Monday"],
+    Day: ["Monday", 'Tuesday'],
     id: '406c4561-fbae-4747-90dc-328e4b79811c'
   },
   {
@@ -14,7 +14,7 @@ let todos = [
     Task: "Walk the dog",
     Easy: true,
     Count: 2,
-    Day: ["Saturday"],
+    Day: ["Saturday", "Tuesday"],
     id: 'd6eae58e-a1e7-43b9-b6b5-68d00946e2bd'
   },
   {
@@ -22,7 +22,7 @@ let todos = [
     Task: "Deliver the package",
     Easy: false,
     Count: 4,
-    Day: ["Sunday"],
+    Day: ["Wednesday", "Sunday"],
     id: '2167d807-c2fc-4a9e-af5e-8047ede65aad'
   },
   {
@@ -46,7 +46,7 @@ let todos = [
     Task: "Get a new job",
     Easy: false,
     Count: 10,
-    Day: ["Friday"],
+    Day: ["Monday", "Tuesday", "Wednesday"],
     id: '8c59a335-dd25-4d3f-9a72-618b1f2e2ac3'
   },
 ];
