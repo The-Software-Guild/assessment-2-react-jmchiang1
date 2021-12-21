@@ -44,7 +44,8 @@
 }
 
 .item-div {
-  width: auto;
+  width: -webkit-fill-available;
+  justify-content: space-evenly;
   border: 1px solid lightgray;
   border-radius: 10px;
   margin: 1rem;
@@ -57,4 +58,8 @@
 
 .item-div, h2{
   background-color: white;
+}
+
+h2 {
+  padding: 10px;
 }

@@ -3,19 +3,18 @@ import axios from "axios";
 import APIHelper from "./ApiHelper";
 import "./Items.css";
 import Modal from "./Modal";
+// import { type } from "express/lib/response";
 
 function Items() {
   const [modalOpen, setModalOpen] = useState(false);
   const [todos, setTodos] = useState([]); //data from the server
-  const [itemLists, setItemLists] = useState([
-    {
-      Name: "",
-      Task: "",
-      Easy: "true",
-      Count: "",
-      Day: [],
-    },
-  ]);
+  const [input, setInput] = useState({
+    Name: "",
+    Task: "",
+    Easy: "",
+    Count: "",
+    Day: [""],
+  });
 
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
@@ -46,24 +45,33 @@ function Items() {
     fetchTodoAndSetTodos();
   }, []);
 
-  //handleChange function to store all values in state
+  //handleChange function to store all values in all state changes
   const handleChange = (event) => {
-    setItemLists({ ...itemLists, [event.target.name]: event.target.value });
+    setInput({ ...input, [event.target.name]: event.target.value });
   };
 
   //submit itemLists data to axios.post request
-  const handleSubmit = () => {
-    console.log("day", itemLists.Day);
+//   const handleSubmit = () => {
+//     console.log("day", todos.Day);
 
-    axios
-      .post("http://localhost:3001/todos/", itemLists)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+//     axios
+//       .post("http://localhost:3001/todos/", input)
+//       .then(function (response) {
+//         console.log(response);
+//       })
+//       .catch(function (error) {
+//         console.log(error);
+//       });
+//   };
+
+console.log("typeof",typeof(input.Day))
+
+const handleSubmit = async (e) => {
+    console.log("todos id", todos.id);
+    await axios.post("http://localhost:3001/todos/", input);
+    e.preventDefault();
   };
+
 
   //find item by id and delete it.
   const deleteTodo = async (id) => {
@@ -78,21 +86,13 @@ function Items() {
   return (
     <div className="App">
       <h1 style={{ color: "black" }}>ToDo List!</h1>
-
       <input
         type="text"
         placeholder="Search..."
         onChange={(e) => searchItems(e.target.value)}
       />
       <div className="float-container">
-        <div
-          className="float-right"
-          style={{
-            backgroundColor: "white",
-            borderRadius: "10px",
-            margin: "1rem",
-          }}
-        >
+        <div className="float-right">
           <form onSubmit={handleSubmit} style={{ backgroundColor: "white" }}>
             <h2 style={{ backgroundColor: "white" }}>Create Item Here</h2>
             <div
@@ -105,7 +105,7 @@ function Items() {
               <input
                 type="text"
                 name="Name"
-                value={itemLists.Name}
+                value={input.Name}
                 onChange={handleChange}
                 placeholder="Name"
                 required
@@ -113,7 +113,7 @@ function Items() {
               <input
                 type="text"
                 name="Task"
-                value={itemLists.Task}
+                value={input.Task}
                 onChange={handleChange}
                 placeholder="Task"
                 required
@@ -121,63 +121,32 @@ function Items() {
               <input
                 type="number"
                 name="Count"
-                value={itemLists.Count}
+                value={input.Count}
                 onChange={handleChange}
                 placeholder="Count"
                 required
               />
-              <div style={{ backgroundColor: "white", margin: "1rem" }}>
-                <label
-                  style={{
-                    backgroundColor: "white",
-                    fontWeight: "bold",
-                    marginRight: "1rem",
-                  }}
-                  htmlFor="easy"
-                >
-                  Day of the week
-                </label>
-                <select style={{ borderRadius: "10px", backgroundColor: 'white' }} name="Todays_Day">
-                  <option value={itemLists.Day} selected></option>
-                  <option value="Monday">Monday</option>
-                  <option value="Tuesday">Tuesday</option>
-                  <option value="Wednesday">Wednesday</option>
-                  <option value="Thursday">Thursday</option>
-                  <option value="Friday">Friday</option>
-                  <option value="Saturday">Saturday</option>
-                  <option value="Sunday">Sunday</option>
-                </select>
+              <div style={{ backgroundColor: "white" }} className="DAY-OF-WEEK">
+                <input
+                  type="Day"
+                  name="text"
+                  value={input.Day}
+                //   onChange={(e) => console.log(setInput({ ...input, Day: e.target.value }))}
+                  onChange={(e) => setInput({ ...input, Day: e.target.value })}
+                  // onChange={handleChange}
+                  placeholder="Specify day of the week"
+                  required
+                />
               </div>
 
-              <div className="easy-div">
-                <label
-                  style={{ backgroundColor: "white", fontWeight: "bold" }}
-                  htmlFor="easy"
-                >
-                  Easy?
-                </label>
-                <div style={{ backgroundColor: "white" }}>
-                  <input
-                    style={{ width: "2rem" }}
-                    type="checkbox"
-                    value={itemLists.Easy}
-                    defaultChecked
-                  />
-                  <label style={{ backgroundColor: "white" }} htmlFor="True">
-                    True
-                  </label>
-                </div>
-                <div style={{ backgroundColor: "white" }}>
-                  <input
-                    style={{ width: "2rem" }}
-                    type="checkbox"
-                    value={itemLists.Easy}
-                  />
-                  <label style={{ backgroundColor: "white" }} htmlFor="False">
-                    False
-                  </label>
-                </div>
-              </div>
+              <input
+                type="Easy"
+                name="text"
+                value={input.Easy}
+                onChange={(e) => setInput({ ...input, Easy: e.target.value })}
+                placeholder="Easy?: True or False?"
+                required
+              />
             </div>
             <div style={{ backgroundColor: "white" }}>
               <button type="submit">Create</button>
@@ -187,23 +156,43 @@ function Items() {
         <div className="container">
           {" "}
           {searchInput.length > 1
-            ? filteredResults.map((item) => {
+            ? filteredResults.map((item, i) => {
                 return (
-                  <div key={item.id} className="item-div">
-                    <h2> Name: {item.Name} </h2>
-                    <h2> Task: {item.Task} </h2>
-                    <h2> Easy?: {String(item.Easy).toUpperCase()} </h2>
-                    <h2> Count: {item.Count} </h2>
-                    {/* <h2> Day: {item.Day.map((x) => x + ' | ')} </h2> */}
-                    <h2> Day: {item.Day} </h2>
-                    <button onClick={() => deleteTodo(item.id)}>Delete</button>
-                    <button
-                      onClick={() => {
-                        setModalOpen(true);
-                      }}
-                    >
-                      Edit{" "}
-                    </button>
+                    <div key={i} className="item-div">
+                    <div style={{backgroundColor: 'transparent', padding: '10px'}}>
+                      <h2> Name </h2>
+                      <h3 style={{backgroundColor: 'transparent'}}>{item.Name}</h3>
+                    </div>
+                    <div style={{backgroundColor: 'transparent', padding: '10px'}}>
+                      <h2> Task </h2>
+                      <h3 style={{backgroundColor: 'transparent'}}>{item.Task}</h3>
+                    </div>
+                    <div style={{backgroundColor: 'transparent', padding: '10px'}}>
+                      <h2> Count </h2>
+                      <h3 style={{backgroundColor: 'transparent'}}>{item.Count}</h3>
+                    </div>
+                    <div style={{backgroundColor: 'transparent', padding: '10px'}}>
+                      <h2> Day </h2>
+                      <h3 style={{backgroundColor: 'transparent'}}>{item.Day}</h3>
+                    </div>
+                    <div style={{backgroundColor: 'transparent', padding: '10px'}}>
+                      <h2> Easy? </h2>
+                      <h3 style={{backgroundColor: 'transparent'}}>{String(item.Easy).toUpperCase()}</h3>
+                    </div>
+
+                    <div className="button-div">
+                      <button onClick={() => deleteTodo(item.id)}>
+                        Delete
+                      </button>
+                      <button
+                        onClick={() => {
+                          setModalOpen(true);
+                        }}
+                      >
+                        {" "}
+                        Edit{" "}
+                      </button>
+                    </div>
                     {modalOpen && (
                       <Modal todos={item} setOpenModal={setModalOpen} />
                     )}
@@ -213,17 +202,47 @@ function Items() {
             : todos.map((item, i) => {
                 return (
                   <div key={i} className="item-div">
-                    <h2> Name: {item.Name} </h2>
-                    <h2> Task: {item.Task} </h2>
-                    <h2> Easy?: {String(item.Easy).toUpperCase()} </h2>
-                    <h2> Count: {item.Count} </h2>
-                    <h2> Day: {item.Day} </h2>
-
-                        <button onClick={() => deleteTodo(item.id)}>Delete</button>
-                        <button onClick={() => {setModalOpen(true)}}> Edit{" "}</button>
-                        {modalOpen && ( <Modal todos={item} setOpenModal={setModalOpen} />)}
-                    <div className="button-div">
+                    <div style={{backgroundColor: 'transparent', padding: '10px'}}>
+                      <h2> Name </h2>
+                      <h3 style={{backgroundColor: 'transparent'}}>{item.Name}</h3>
                     </div>
+                    <div style={{backgroundColor: 'transparent', padding: '10px'}}>
+                      <h2> Task </h2>
+                      <h3 style={{backgroundColor: 'transparent'}}>{item.Task}</h3>
+                    </div>
+                    <div style={{backgroundColor: 'transparent', padding: '10px'}}>
+                      <h2> Count </h2>
+                      <h3 style={{backgroundColor: 'transparent'}}>{item.Count}</h3>
+                    </div>
+                    <div style={{backgroundColor: 'transparent', padding: '10px'}}>
+                      <h2> Day </h2>
+                      {/* <h3 style={{backgroundColor: 'transparent'}}>{item.Day.map((x, i) => 
+                      <p key={i} style={{backgroundColor: 'transparent'}}>{x}</p>
+                      )}</h3> */}
+                      {/* <h3 style={{backgroundColor: 'transparent'}}>{item.Day.split("")}</h3> */}
+                      <h3 style={{backgroundColor: 'transparent'}}>{item.Day}</h3>
+                    </div>
+                    <div style={{backgroundColor: 'transparent', padding: '10px'}}>
+                      <h2> Easy? </h2>
+                      <h3 style={{backgroundColor: 'transparent'}}>{String(item.Easy).toUpperCase()}</h3>
+                    </div>
+
+                    <div className="button-div">
+                      <button onClick={() => deleteTodo(item.id)}>
+                        Delete
+                      </button>
+                      <button
+                        onClick={() => {
+                          setModalOpen(true);
+                        }}
+                      >
+                        {" "}
+                        Edit{" "}
+                      </button>
+                    </div>
+                    {modalOpen && (
+                      <Modal todos={item} setOpenModal={setModalOpen} />
+                    )}
                   </div>
                 );
               })}

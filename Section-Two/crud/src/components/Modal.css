@@ -7,14 +7,15 @@
     align-items: center;
     left: 34%;
     top: 22%;
+    background-color: transparent;
   }
   
   .modalContainer {
-    width: 500px;
-    height: 500px;
+    width: max-content;
+    height: max-content;
     border-radius: 12px;
     background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: 0px 5px 15px gray;
     display: flex;
     flex-direction: column;
     padding: 25px;
@@ -41,7 +42,7 @@
   }
   
   .modalContainer .body {
-    flex: 50%;
+    /* flex: 50%; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,7 +52,7 @@
   }
   
   .modalContainer .footer {
-    flex: 20%;
+    /* flex: 20%; */
     display: flex;
     justify-content: center;
     align-items: center;

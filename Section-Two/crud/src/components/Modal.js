@@ -1,23 +1,33 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Modal.css";
 
 function Modal({ setOpenModal, todos }) {
-  // console.log("todos",todos)
 
   const [input, setInput] = useState({
     Name: "",
     Task: "",
     Easy: "",
     Count: "",
-    Day: [],
+    Day: [""],
   });
 
-  const submit = async (e, id) => {
+//   const submitFunc = useEffect((id) => {
+//     id = todos.id
+//     const submit = async () => {
+//       const todos = axios.patch(`http://localhost:3001/todos/${id}`, input);
+//       console.log(todos);
+//       setInput(input);
+//     };
+//     submit();
+//   }, [input, todos.id]);
+
+  const submitFunc = async (e, id) => {
     id = todos.id;
     console.log("todos id", todos.id);
     await axios.patch(`http://localhost:3001/todos/${id}`, input);
     e.preventDefault();
+    // setInput(input);
   };
 
   const handleChange = (e) => {
@@ -29,6 +39,7 @@ function Modal({ setOpenModal, todos }) {
       <div className="modalBackground">
         <div className="modalContainer">
           <div className="body">
+              <h3 style={{backgroundColor: 'transparent'}} >Update Item Here</h3>
             <input
               type="text"
               name="Name"
@@ -45,30 +56,6 @@ function Modal({ setOpenModal, todos }) {
               placeholder="Task"
               required
             />
-            <div
-              style={{
-                display: "flex",
-                backgroundColor: "white",
-                marginBottom: "1rem",
-              }}
-            >
-              <label for="html" style={{ backgroundColor: "white" }}>
-                Easy?
-              </label>
-              <select
-                style={{
-                  backgroundColor: "white",
-                  border: "1px solid lightGray",
-                  borderRadius: "10px",
-                }}
-                name="Boolean"
-              >
-                <option value={input.Day} selected></option>
-                <option value="True">True</option>
-                <option value="False">False</option>
-              </select>
-            </div>
-
             <input
               type="number"
               name="Count"
@@ -81,8 +68,17 @@ function Modal({ setOpenModal, todos }) {
               type="text"
               name="Day"
               value={input.Day}
+            //   onChange={(e) => console.log(setInput({ ...input, Day: e.target.value }))}
               onChange={(e) => setInput({ ...input, Day: e.target.value })}
               placeholder="Day"
+              required
+            />
+            <input
+              type="text"
+              name="easy"
+              value={input.Easy}
+              onChange={(e) => setInput({ ...input, Easy: e.target.value })}
+              placeholder="True or False"
               required
             />
           </div>
@@ -95,7 +91,7 @@ function Modal({ setOpenModal, todos }) {
             >
               Cancel
             </button>
-            <button onClick={submit}>Submit</button>
+            <button onClick={submitFunc}>Submit</button>
           </div>
         </div>
       </div>
