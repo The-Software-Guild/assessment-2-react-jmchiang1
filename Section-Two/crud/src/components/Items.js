@@ -16,12 +16,6 @@ function Items() {
     Day: [""],
   });
 
-  //   console.log("todos day", todos[0].Day);   //returns ["Monday", "Tuesday"]
-  //   console.log("todos", todos); //returns entire json object
-  //   console.log("itemlist", input.Day); //returns itemList Day array ["", "", ""]
-  //   console.log('itemlist', itemLists[0].Day[0]) //returns empty string - that's good
-//   console.log(input.Day.map((x) => x));
-
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
 
@@ -225,6 +219,7 @@ const handleSubmit = async (e) => {
                       {/* <h3 style={{backgroundColor: 'transparent'}}>{item.Day.map((x, i) => 
                       <p key={i} style={{backgroundColor: 'transparent'}}>{x}</p>
                       )}</h3> */}
+                      {/* <h3 style={{backgroundColor: 'transparent'}}>{item.Day.split("")}</h3> */}
                       <h3 style={{backgroundColor: 'transparent'}}>{item.Day}</h3>
                     </div>
                     <div style={{backgroundColor: 'transparent', padding: '10px'}}>

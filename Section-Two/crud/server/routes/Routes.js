@@ -47,8 +47,9 @@ router.post("/", (request, response) => {
   const todo = {
     Name: request.body.Name,
     Task: request.body.Task,
-    Easy: request.body.Easy,
     Count: request.body.Count,
+    Day: request.body.Day,
+    Easy: request.body.Easy.toLowerCase() === 'true',
     id: uuidv4(),
   };
   try {
@@ -60,20 +61,6 @@ router.post("/", (request, response) => {
       }
   }
 });
-
-//delete single item -
-// router.delete("/:id", (req, res, next) => {
-//   let id = req.params.id;
-//   try {
-//       todos = todos.filter((item) => item.id !== parseInt(id));
-//       res.status(200)
-//     //   .send(todos);
-//       .redirect("/todos")
-//   } catch (err) {
-//       res.send(404).send('Invalid Deletion');
-//       next(err);
-//   }
-// })
 
 //delete single item - WORKS
 router.delete("/:id", (request, response) => {
